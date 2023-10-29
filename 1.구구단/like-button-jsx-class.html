@@ -1,42 +1,42 @@
 <html>
-  <head> </head>
-  <body>
-    <div id="root"></div>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <!--<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>-->
-    <!--<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>-->
-    <script type="text/babel"> // JSX 사용한 곳은 타입도 바꿔줘야한다.
-      'use strict';
+<head> </head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <!--<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>-->
+  <!--<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>-->
+  <script type="text/babel"> // JSX 사용한 곳은 타입도 바꿔줘야한다.
+    'use strict';
 
-      class LikeButton extends React.Component {
-        constructor(props) {
-          super(props);
-          this.state = { liked: false };
-        }
-
-        render() {
-          if (this.state.liked) {
-            return 'You liked this.';
-          }
-
-          // return React.createElement('button', {onClick: () => this.setState({liked: true})}, 'Like');
-          return (
-            <button onClick={() => {
-                // this.state.liked = true; ❌ // 객체를 함부로 바꾸지 마라. 복사해라(불변성)
-                this.setState({ liked: true });
-              }}
-            >
-              Like
-            </button>
-          );
-        }
+    class LikeButton extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { liked: false };
       }
-    </script>
-    <script type="text/babel">
-      // ReactDOM.render(<LikeButton />, document.querySelector('#root')); // React 17버전 코드
-      ReactDOM.createRoot(document.querySelector('#root')).render(<LikeButton />); // React 18버전 코드
-    </script>
-  </body>
+
+      render() {
+        if (this.state.liked) {
+          return 'You liked this.';
+        }
+
+        // return React.createElement('button', {onClick: () => this.setState({liked: true})}, 'Like');
+        return (
+          <button onClick={() => {
+              // this.state.liked = true; ❌ // 객체를 함부로 바꾸지 마라. 복사해라(불변성)
+              this.setState({ liked: true });
+            }}
+          >
+            Like
+          </button>
+        );
+      }
+    }
+  </script>
+  <script type="text/babel">
+    // ReactDOM.render(<LikeButton />, document.querySelector('#root')); // React 17버전 코드
+    ReactDOM.createRoot(document.querySelector('#root')).render(<LikeButton />); // React 18버전 코드
+  </script>
+</body>
 </html>
