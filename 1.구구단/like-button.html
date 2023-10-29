@@ -5,16 +5,12 @@
       <!-- 여기다가 LikeButton을 그린다. -->
     </div>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <!-- ▲ React 18버전 불러오는거임 -->
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <!-- ▲ ReactDOM 18버전 불러오는거임 -->
-    <!-- ▼ 아래 두줄은 배포용 -->
     <!--<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>-->
     <!--<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>-->
     <script>
       'use strict';
 
-      // ▼ class 컴포넌트
       class LikeButton extends React.Component {
         constructor(props) {
           super(props);
@@ -26,26 +22,18 @@
             return 'You liked this.'; // ◀︎ 화면 부분
           }
 
-          return React.createElement(
-            'button',
-            { onClick: () => this.setState({ liked: true }) },
-            'Like'
-          ); // ◀︎ 화면 부분
+          return React.createElement('button', { onClick: () => this.setState({ liked: true }) }, 'Like'); // ◀︎ 화면 부분
         }
       }
     </script>
     <script>
-      // ▼ 리액트 18버전 코드 이거 안적으면 화면에 안뜸
-      // ▼ <div id=root> 인 요소에 LikeButton 컴포넌트를 그린다.
+      // ▼ 리액트 18버전 코드
       ReactDOM.createRoot(document.querySelector('#root')).render(
         e(LikeButton)
-      );
+      ); // ▼ <div id=root> 인 요소에 LikeButton 컴포넌트를 그린다.
 
       // ▼ (참고) 리액트 17버전 코드
-      ReactDOM.render(
-        React.createElement(LikeButton),
-        document.querySelector('#root')
-      );
+      ReactDOM.render(React.createElement(LikeButton), document.querySelector('#root'));
     </script>
   </body>
 </html>
