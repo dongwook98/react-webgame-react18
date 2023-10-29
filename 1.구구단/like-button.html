@@ -28,12 +28,10 @@
     </script>
     <script>
       // ▼ 리액트 18버전 코드
-      ReactDOM.createRoot(document.querySelector('#root')).render(
-        e(LikeButton)
-      ); // ▼ <div id=root> 인 요소에 LikeButton 컴포넌트를 그린다.
+      ReactDOM.createRoot(document.querySelector('#root')).render(React.createElement(LikeButton)); // ▼ <div id=root> 인 요소에 LikeButton 컴포넌트를 그린다.
 
       // ▼ (참고) 리액트 17버전 코드
-      ReactDOM.render(React.createElement(LikeButton), document.querySelector('#root'));
+      // ReactDOM.render(React.createElement(LikeButton), document.querySelector('#root'));
     </script>
   </body>
 </html>
