@@ -1,0 +1,103 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>함수 컴포넌트 구구단</title>
+</head>
+<body>
+<div id="root"></div>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<script type="text/babel">
+  const GuGuDan = () => {
+    const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
+    const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9));
+    const [value, setValue] = React.useState('');
+    const [result, setResult] = React.useState('');
+    const [counter, setCounter] = React.useState(1);
+
+    // state를 객체로 묶어줄수는 있는데 this.setState와는 다르게 일일이 바꿔줘야 한다.
+    // const [state, setState] = React.useState({
+    //       first: Math.ceil(Math.random() * 9),
+    //       second: Math.ceil(Math.random() * 9),
+    //       value: '',
+    //       result: '',
+    //     })
+
+    // ▼ ref 사용법
+    const inputRef = React.useRef(null);
+
+    const onSubmitForm = (e) => {
+      e.preventDefault();
+      if (parseInt(value) === first * second) {
+            // setState가 4번인데 렌더링 1번밖에 안일어남 why? setState가 비동기로 동작하기 때문임
+            // setState가 비동기인 이유는 setState를 모아서 렌더링을 딱 한번만 하게 처리함.
+            setResult((prevResult) => {
+              return prevResult + ' 정답!'
+            });
+            setFirst(Math.ceil(Math.random() * 9));
+            setSecond(Math.ceil(Math.random() * 9));
+            setValue('');
+
+            // ref: 함수 컴포넌트에서는 current 추가
+            inputRef.current.focus();
+          } else { // 오답
+              setResult('땡!');
+              setValue('');
+              inputRef.current.focus();
+            }
+    }
+
+    const onChangeInput = (e) => {
+      setValue(e.target.value);
+    }
+    
+    // state가 바뀌면 함수 자체가 통째로 실행되기때문에 클래스컴포넌트보다 조금 더 느릴 수 있다.
+    console.log('렌더링')
+    return (
+      <React.Fragment>
+        <div>{first} 곱하기 {second}는?</div>
+        <form onSubmit={onSubmitForm}>
+          <input ref={inputRef} type="number" value={value} onChange={onChangeInput}/>
+          <button type="submit">입력!</button>  
+        </form>
+        <div>{result}</div>
+        <div>{counter}</div>
+        <button onClick={() => { 
+          // setCounter(counter+1)
+          // setCounter(counter+1)
+          // ▲ 1씩 증가함.. 비동기로 동작하기 때문!
+          // setState함수에 인자로 함수를 넣고 예전 state값으로 미래 state값을 리턴하면 setState함수가 비동기로 동작하는 문제를 해결할수있다.
+          setCounter((prevCounter) => prevCounter+1)
+          setCounter((prevCounter) => prevCounter+1)
+          // ▲ 2씩 증가함!
+        }}>증가</button>
+      </React.Fragment>
+    );
+  }
+</script>
+<script type="text/babel">
+  ReactDOM.createRoot(document.querySelector('#root')).render(<GuGuDan/>);
+</script>
+</body>
+</html>
+
+<!-- 함수 컴포넌트가 새로 생긴것은 아니다. -->
+<!-- React hooks란 함수 컴포넌트에서도 클래스 컴포넌트의 setState와 ref 등등 여러가지 기능을 사용할 수 있게 해주는 녀석이다. -->
+
+<!-- hooks를 쓰면 코드가 짧아진다. -->
+<!-- state가 바뀌면 함수 자체가 통째로 실행되기때문에 클래스컴포넌트보다 조금 더 느릴 수 있다. -->
+
+<!-- Class와 Hooks 비교하기 
+1. ref 쓰는방법이 다르다.
+2. state쓰는 방법이 다르다.
+3. Class 컴포넌트는 state가 바뀌면 render함수만 다시 실행된다. 
+반면에 함수 컴포넌트는 함수 컴포넌트 자체가 통째로 다시 실행된다.
+-->
+
+<!-- 주의할 점  -->
+<!-- class -> className -->
+<!-- for -> htmlFor -->
+
+<!-- setState함수에 인자로 함수를 넣고 예전 state값으로 미래 state값을 리턴하면 setState함수가 비동기로 동작하는 문제를 해결할수있다. -->

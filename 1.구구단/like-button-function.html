@@ -1,0 +1,56 @@
+<html>
+  <head> </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+      'use strict';
+
+      // 남의 라이브러리 코드를 역추론하는게 매우 중요한 능력이다.
+      // React = {
+      //   useState(value) {
+      //     const setValue = (newValue) => {
+      //       value = newValue; // 3. 객체를 함부로 바꾸지마라
+      //     }
+      //     return [value, setValue];
+      //   }
+      // }
+
+      // 함수형 컴포넌트 x 함수 컴포넌트 O
+      function LikeButton() {
+        // 함수 컴포넌트는 this 쓸 일이 없다.
+        const [liked, setLiked] = React.useState(false); // 구조분해
+        // const result = React.useState(false);
+        // const liked = result[0];
+        // const setLiked = result[1];
+
+        // 뭔짓을 하든, 결국 return한게 화면이다.
+        if (liked) {
+          return 'You liked this';
+        }
+        return (
+          <button
+            onClick={() => {
+              setLiked(true);
+            }}
+          >
+            Like
+          </button>
+        );
+      }
+    </script>
+    <script type="text/babel">
+      ReactDOM.createRoot(document.querySelector('#root')).render(
+        <LikeButton />
+      );
+    </script>
+  </body>
+</html>
+
+<!-- 함수 컴포넌트
+클래스 컴포넌트에 비해서 코드가 짧다.
+함수 컴포넌트 this 쓸 일이 없다.
+-->
