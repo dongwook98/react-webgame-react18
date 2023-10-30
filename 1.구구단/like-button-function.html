@@ -19,24 +19,15 @@
       //   }
       // }
 
-      // 함수형 컴포넌트 x 함수 컴포넌트 O
-      function LikeButton() {
+      function LikeButton() { // 함수형 컴포넌트 x 함수 컴포넌트 O
         // 함수 컴포넌트는 this 쓸 일이 없다.
         const [liked, setLiked] = React.useState(false); // 구조분해
-        // const result = React.useState(false);
-        // const liked = result[0];
-        // const setLiked = result[1];
 
-        // 뭔짓을 하든, 결국 return한게 화면이다.
         if (liked) {
           return 'You liked this';
         }
         return (
-          <button
-            onClick={() => {
-              setLiked(true);
-            }}
-          >
+          <button onClick={() => { setLiked(true); }}>
             Like
           </button>
         );
@@ -49,8 +40,3 @@
     </script>
   </body>
 </html>
-
-<!-- 함수 컴포넌트
-클래스 컴포넌트에 비해서 코드가 짧다.
-함수 컴포넌트 this 쓸 일이 없다.
--->
