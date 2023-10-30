@@ -8,10 +8,9 @@
   </head>
   <body>
     <div id="root"></div>
-    <!-- 결과: <div id="root"><button>Like</button></div> -->
+
     <script type="text/babel">
       class GuGuDan extends React.Component {
-        // constructor 생략가능
         state = {
           first: Math.ceil(Math.random() * 9),
           second: Math.ceil(Math.random() * 9),
@@ -19,14 +18,11 @@
           result: '',
         };
 
-        // 직접 만든 함수는 화살표함수 써야한다. this가 달라져버림.
-        onSubmit = (e) => {
+        onSubmit = (e) => { // 직접 만든 함수는 화살표함수 써야한다. this가 달라져버림.
           e.preventDefault();
           // 구구단 로직
-          if (parseInt(this.state.value) === this.state.first * this.state.second) {
-            // 정답
-            // 우리가 바뀔 부분을 정확히 컨트롤 하는거다.
-            this.setState((prevState) => {
+          if (parseInt(this.state.value) === this.state.first * this.state.second) { // 정답
+            this.setState((prevState) => { // 우리가 바뀔 부분을 정확히 컨트롤 하는거다.
               return {
                 // 아래 4개는 미래 상태값이다. 현재 state와 미래 state를 같이 쓰지 말고 setState안에다가 새로운 state를 리턴하는 함수를 쓰자.
                 result: prevState.value + ' 정답!',
@@ -58,7 +54,7 @@
             }
         };
 
-        onChange = (e) => {
+        onChange = (e) => { // 직접 만든 함수는 화살표함수 써야한다. this가 달라져버림.
           this.setState({ value: e.target.value });
         };
 
@@ -70,13 +66,11 @@
         // onSubmit, onChange, onRefInput 이렇게 함수를 바깥으로 빼야지 더 좋다. 왜냐하면 state가 변경될때 render 함수가 다시 실행되는데,
         // 안에 있으면 setState 될 때마다 우리가 만든 함수가 계속 새로 생기게 된다. 
 
-        // 컨텐츠
         render() {
           // setState를 할때는 render 함수가 다시 실행된다.
           // 만약 이 줄에 10초 걸리는 작업 long()이 있다면 state가 변경될 때마다 10초이상이 걸리게 되서 서비스가 마비될것이다.
           console.log('렌더링');
           return (
-            // 필요없는 div는 <> </>
             <React.Fragment>
               <div>
                 {this.state.first} 곱하기 {this.state.second}는?
