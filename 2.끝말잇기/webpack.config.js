@@ -2,15 +2,16 @@ const path = require('path');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
-  name: 'word-relay-dev',
-  mode: 'development',
-  devtool: 'inline-source-map',
+  name: 'wordrelay-setting',
+  mode: 'development', // 실서비스: production
+  devtool: 'eval',
   resolve: {
     extensions: ['.js', '.jsx'],
-  },
+  }, // 알아서 client.js나 client.jsx가 있는지 찾아준다.
+  
   entry: {
-    app: './client',
-  },
+    app: ['./client'],
+  }, // 입력
   module: {
     rules: [{
       test: /\.jsx?$/,
@@ -32,10 +33,10 @@ module.exports = {
     new ReactRefreshWebpackPlugin(),
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: '[name].js',
+    path: path.join(__dirname, 'dist'), // C:/users/Desktop/zerhocho-lecture/react-webgame-react18/1.구구단/dist
+    filename: 'app.js',
     publicPath: '/dist',
-  },
+  }, // 출력
   devServer: {
     devMiddleware: { publicPath: '/dist' },
     static: { directory: path.resolve(__dirname) },
