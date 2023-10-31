@@ -5,7 +5,7 @@ const WordRelay = () => {
   const [word, setWord] = useState('제로초');
   const [value, setValue] = useState('');
   const [result, setResult] = useState('');
-  const inputEl = useRef(null);
+  const inputRef = useRef(null);
 
   const onSubmitForm = (e) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ const WordRelay = () => {
       setResult('땡');
     }
     setValue('');
-    inputEl.current.focus();
+    inputRef.current.focus();
   };
 
   onChageInput = (e) => {
@@ -32,7 +32,7 @@ const WordRelay = () => {
       <div>{word}</div>
       <form onSubmit={onSubmitForm}>
         <input
-          ref={inputEl}
+          ref={inputRef}
           value={value}
           onChange={onChageInput}
         />
