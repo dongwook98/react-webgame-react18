@@ -16,11 +16,22 @@ module.exports = {
       test: /\.jsx?$/,
       loader: 'babel-loader',
       options: {
-        presets: ['@babel/preset-env', '@babel/preset-react'],
+        presets: [
+          ['@babel/preset-env', {
+            targets: {
+              browsers: ['> 1% in KR  '], // browserslist 원하는 브라우저만 호환
+            },
+            debug: true,
+          }],
+          '@babel/preset-react'
+        ],
         plugins: [],
       },
     }],
   },
+  plugins: [
+    new webpack.LoaderOptionsPlugin({ debug: true }),
+  ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'app.js',
