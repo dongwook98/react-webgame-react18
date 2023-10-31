@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack"
   },
-  "author": "ZeroCho",
+  "author": "dongwook",
   "license": "MIT",
   "dependencies": {
     "react": "^18.1.0",
