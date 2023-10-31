@@ -23,6 +23,10 @@ const WordRelay = () => {
 
   return (
     <>
+      <div>
+        <h1>끝말잇기</h1>
+        <p>끝말잇기 게임에 오신것을 환영합니다.</p>
+      </div>
       <div>{word}</div>
       <form onSubmit={onSubmitForm}>
         <input

@@ -38,13 +38,14 @@ class WordRelayClass extends Component {
   render() {
     return (
       <>
+        <div>
+          <h1>끝말잇기</h1>
+          <p>끝말잇기 게임에 오신것을 환영합니다.</p>
+        </div>
         <div>{this.state.word}</div>
         <form onSubmit={this.onSubmitForm}>
-          <label htmlFor="wordInput">글자를 입력하세요.</label>
           <input ref={this.onRefInput} type="text" value={this.state.value} onChange={this.onChageInput} />
-          <button>입력!!!!!</button>
-          
-          <h1>핫로더 짱!</h1>
+          <button>입력!</button>
         </form>
         <div>{this.state.result}</div>
       </>
