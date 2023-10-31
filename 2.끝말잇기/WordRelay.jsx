@@ -12,14 +12,16 @@ const WordRelay = () => {
     if (word[word.length - 1] === value[0]) {
       setResult('딩동댕');
       setWord(value);
-      setValue('');
-      inputEl.current.focus();
     } else {
       setResult('땡');
-      setValue('');
-      inputEl.current.focus();
     }
+    setValue('');
+    inputEl.current.focus();
   };
+
+  onChageInput = (e) => {
+    setValue(e.target.value);
+  }
 
   return (
     <>
@@ -32,7 +34,7 @@ const WordRelay = () => {
         <input
           ref={inputEl}
           value={value}
-          onChange={(e) => setValue(e.currentTarget.value)}
+          onChange={onChageInput}
         />
         <button>입력!</button>
       </form>
