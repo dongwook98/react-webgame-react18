@@ -19,7 +19,9 @@ module.exports = {
       options: {
         presets: [
           ['@babel/preset-env', {
-            targets: {browsers: ['last 2 chrome versions']},
+            targets: {
+              browsers: ['> 1% in KR'],
+            },
             debug: true,
           }],
           '@babel/preset-react',
@@ -33,13 +35,13 @@ module.exports = {
     new ReactRefreshWebpackPlugin(),
   ],
   output: {
-    path: path.join(__dirname, 'dist'), // C:/users/Desktop/zerhocho-lecture/react-webgame-react18/1.구구단/dist
+    path: path.join(__dirname, 'dist'), // 실제 경로
     filename: 'app.js',
-    publicPath: '/dist',
+    publicPath: '/dist', // 가상 경로
   }, // 출력
   devServer: {
-    devMiddleware: { publicPath: '/dist' },
-    static: { directory: path.resolve(__dirname) },
+    devMiddleware: { publicPath: '/dist' }, // webpack-dev-server가 사용하는 결과물간의 상대 경로
+    static: { directory: path.resolve(__dirname) }, // 실제로 존재하는 정적파일(index.html)의 경로
     hot: true
   }
 };
