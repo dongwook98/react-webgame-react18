@@ -21,6 +21,7 @@ class Test extends Component {
     console.log('렌더링', this.state);
     return (
       <div>
+        <div>{this.state.counter}</div>
         <button onClick={this.onClick}>클릭</button>
       </div>
     );
