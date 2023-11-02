@@ -21,8 +21,8 @@ const NumberBaseball = () => {
   const onSubmitForm = useCallback((e) => {
     e.preventDefault();
     if (value === answer.join('')) {
-      setTries((t) => ([
-        ...t,
+      setTries((prevTries) => ([
+        ...prevTries,
         {
           try: value,
           result: '홈런!',
@@ -56,8 +56,8 @@ const NumberBaseball = () => {
             ball += 1;
           }
         }
-        setTries(t => ([
-          ...t,
+        setTries(prevTries => ([
+          ...prevTries,
           {
             try: value,
             result: `${strike} 스트라이크, ${ball} 볼입니다.`,

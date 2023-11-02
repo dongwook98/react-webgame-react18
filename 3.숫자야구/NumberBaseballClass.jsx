@@ -16,7 +16,7 @@ class NumberBaseball extends Component {
     result: '',
     value: '',
     answer: getNumbers(), // ex: [1,3,5,7]
-    tries: [], // push 쓰면 안 돼요
+    tries: [], // push 쓰면 안 돼요(불변성)
   };
 
   onSubmitForm = (e) => {
