@@ -14,7 +14,7 @@ class ResponseCheck extends Component {
   onClickScreen = () => {
     const { state } = this.state;
     if (state === 'waiting') {
-      timeout.current = setTimeout(() => {
+      this.timeout = setTimeout(() => {
         this.setState({
           state: 'now',
           message: '지금 클릭',
@@ -32,12 +32,12 @@ class ResponseCheck extends Component {
         message: '너무 성급하시군요! 초록색이 된 후에 클릭하세요.',
       });
     } else if (state === 'now') { // 반응속도 체크
-      endTime.current = new Date();
+      this.endTime = new Date();
       this.setState((prevState) => {
         return {
           state: 'waiting',
           message: '클릭해서 시작하세요.',
-          result: [...prevState.result, this.endTime, this.startTime],
+          result: [...prevState.result, this.endTime - this.startTime],
         };
       });
     }
