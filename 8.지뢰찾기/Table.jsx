@@ -6,9 +6,13 @@ const Table = memo(() => {
   const { tableData } = useContext(TableContext);
   return (
     <table>
-      {Array(tableData.length).fill().map((tr, i) => <Tr key={i} rowIndex={i} />)}
+      {Array(tableData.length)
+        .fill()
+        .map((tr, i) => (
+          <Tr key={i} rowIndex={i} />
+        ))}
     </table>
-  )
+  );
 });
 Table.displayName = 'Table';
 

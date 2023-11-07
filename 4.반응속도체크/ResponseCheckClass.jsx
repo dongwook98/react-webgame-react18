@@ -25,13 +25,15 @@ class ResponseCheck extends Component {
         state: 'ready',
         message: '초록색이 되면 클릭하세요.',
       });
-    } else if (state === 'ready') { // 성급하게 클릭
+    } else if (state === 'ready') {
+      // 성급하게 클릭
       clearTimeout(this.timeout);
       this.setState({
         state: 'waiting',
         message: '너무 성급하시군요! 초록색이 된 후에 클릭하세요.',
       });
-    } else if (state === 'now') { // 반응속도 체크
+    } else if (state === 'now') {
+      // 반응속도 체크
       this.endTime = new Date();
       this.setState((prevState) => {
         return {
@@ -50,29 +52,25 @@ class ResponseCheck extends Component {
   };
 
   renderAverage = () => {
-    const {result} = this.state;
-    return result.length === 0
-      ? null
-      : <>
+    const { result } = this.state;
+    return result.length === 0 ? null : (
+      <>
         <div>평균 시간: {result.reduce((a, c) => a + c) / result.length}ms</div>
         <button onClick={this.onReset}>리셋</button>
       </>
+    );
   };
 
   render() {
     const { state, message } = this.state;
     return (
       <>
-        <div
-          id="screen"
-          className={state}
-          onClick={this.onClickScreen}
-        >
+        <div id='screen' className={state} onClick={this.onClickScreen}>
           {message}
         </div>
         {this.renderAverage()}
       </>
-    )
+    );
   }
 }
 

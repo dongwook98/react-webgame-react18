@@ -1,5 +1,13 @@
 import React, { useContext, useCallback, useMemo, memo } from 'react';
-import { CLICK_MINE, CODE, FLAG_CELL, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL, TableContext } from './MineSearch';
+import {
+  CLICK_MINE,
+  CODE,
+  FLAG_CELL,
+  NORMALIZE_CELL,
+  OPEN_CELL,
+  QUESTION_CELL,
+  TableContext,
+} from './MineSearch';
 
 const getTdStyle = (code) => {
   switch (code) {
@@ -75,44 +83,55 @@ const Td = memo(({ rowIndex, cellIndex }) => {
     }
   }, [tableData[rowIndex][cellIndex], halted]);
 
-  const onRightClickTd = useCallback((e) => {
-    e.preventDefault();
-    if (halted) {
-      return;
-    }
-    switch (tableData[rowIndex][cellIndex]) {
-      case CODE.NORMAL:
-      case CODE.MINE:
-        dispatch({ type: FLAG_CELL, row: rowIndex, cell: cellIndex });
+  const onRightClickTd = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (halted) {
         return;
-      case CODE.FLAG_MINE:
-      case CODE.FLAG:
-        dispatch({ type: QUESTION_CELL, row: rowIndex, cell: cellIndex });
-        return;
-      case CODE.QUESTION_MINE:
-      case CODE.QUESTION:
-        dispatch({ type: NORMALIZE_CELL, row: rowIndex, cell: cellIndex });
-        return;
-      default:
-        return;
-    }
-  }, [tableData[rowIndex][cellIndex], halted]);
+      }
+      switch (tableData[rowIndex][cellIndex]) {
+        case CODE.NORMAL:
+        case CODE.MINE:
+          dispatch({ type: FLAG_CELL, row: rowIndex, cell: cellIndex });
+          return;
+        case CODE.FLAG_MINE:
+        case CODE.FLAG:
+          dispatch({ type: QUESTION_CELL, row: rowIndex, cell: cellIndex });
+          return;
+        case CODE.QUESTION_MINE:
+        case CODE.QUESTION:
+          dispatch({ type: NORMALIZE_CELL, row: rowIndex, cell: cellIndex });
+          return;
+        default:
+          return;
+      }
+    },
+    [tableData[rowIndex][cellIndex], halted]
+  );
 
   console.log('td rendered');
 
-  return <RealTd onClickTd={onClickTd} onRightClickTd={onRightClickTd} data={tableData[rowIndex][cellIndex]} />;
+  return (
+    <RealTd
+      onClickTd={onClickTd}
+      onRightClickTd={onRightClickTd}
+      data={tableData[rowIndex][cellIndex]}
+    />
+  );
 });
 Td.displayName = 'Td';
 
-const RealTd = memo(({ onClickTd, onRightClickTd, data}) => {
+const RealTd = memo(({ onClickTd, onRightClickTd, data }) => {
   console.log('real td rendered');
   return (
     <td
       style={getTdStyle(data)}
       onClick={onClickTd}
       onContextMenu={onRightClickTd}
-    >{getTdText(data)}</td>
-  )
+    >
+      {getTdText(data)}
+    </td>
+  );
 });
 RealTd.displayName = 'RealTd';
 

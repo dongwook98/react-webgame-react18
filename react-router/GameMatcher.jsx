@@ -13,15 +13,10 @@ const GameMatcher = () => {
   console.log(location);
   return (
     <Routes>
-      <Route path="number-baseball" element={<NumberBaseball />} />
-      <Route path="rock-scissors-paper" element={<RSP />} />
-      <Route path="lotto-generator" element={<Lotto />} />
-      <Route
-        path="*"
-        element={<div>
-          일치하는 게임이 없습니다.
-        </div>}
-      />
+      <Route path='number-baseball' element={<NumberBaseball />} />
+      <Route path='rock-scissors-paper' element={<RSP />} />
+      <Route path='lotto-generator' element={<Lotto />} />
+      <Route path='*' element={<div>일치하는 게임이 없습니다.</div>} />
     </Routes>
   );
 };

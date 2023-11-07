@@ -21,7 +21,7 @@ const WordRelay = () => {
 
   onChageInput = (e) => {
     setValue(e.target.value);
-  }
+  };
 
   return (
     <>
@@ -31,11 +31,7 @@ const WordRelay = () => {
       </div>
       <div>{word}</div>
       <form onSubmit={onSubmitForm}>
-        <input
-          ref={inputRef}
-          value={value}
-          onChange={onChageInput}
-        />
+        <input ref={inputRef} value={value} onChange={onChageInput} />
         <button>입력!</button>
       </form>
       <div>{result}</div>

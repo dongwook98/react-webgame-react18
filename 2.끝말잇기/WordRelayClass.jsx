@@ -10,7 +10,7 @@ class WordRelayClass extends Component {
 
   onSubmitForm = (e) => {
     e.preventDefault();
-    if(this.state.word[this.state.word.length - 1] === this.state.value[0]) {
+    if (this.state.word[this.state.word.length - 1] === this.state.value[0]) {
       this.setState({
         result: '딩동댕',
         word: this.state.value,
@@ -23,17 +23,17 @@ class WordRelayClass extends Component {
       });
     }
     this.input.focus();
-  }
+  };
 
   onChageInput = (e) => {
-    this.setState({value: e.currentTarget.value})
-  }
+    this.setState({ value: e.currentTarget.value });
+  };
 
   input;
 
   onRefInput = (c) => {
     this.input = c;
-  }
+  };
 
   render() {
     return (
@@ -44,12 +44,17 @@ class WordRelayClass extends Component {
         </div>
         <div>{this.state.word}</div>
         <form onSubmit={this.onSubmitForm}>
-          <input ref={this.onRefInput} type="text" value={this.state.value} onChange={this.onChageInput} />
+          <input
+            ref={this.onRefInput}
+            type='text'
+            value={this.state.value}
+            onChange={this.onChageInput}
+          />
           <button>입력!</button>
         </form>
         <div>{this.state.result}</div>
       </>
-    )
+    );
   }
 }
 

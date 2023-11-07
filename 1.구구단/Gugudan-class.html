@@ -1,88 +1,91 @@
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>구구단</title>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-  </head>
-  <body>
-    <div id="root"></div>
 
-    <script type="text/babel">
-      class GuGuDan extends React.Component {
-        state = {
-          first: Math.ceil(Math.random() * 9),
-          second: Math.ceil(Math.random() * 9),
-          value: '',
-          result: '',
-        };
+<head>
+  <meta charset="UTF-8" />
+  <title>구구단</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
 
-        onSubmit = (e) => { // 직접 만든 함수는 화살표함수 써야한다. this가 달라져버림.
-          e.preventDefault();
-          if (parseInt(this.state.value) === this.state.first * this.state.second) { // 정답
-            this.setState((prevState) => { // 우리가 바뀔 부분을 정확히 컨트롤 하는거다.
-              return {
-                result: prevState.value + ' 정답!', // 예전 state 값으로 새로운 state를 만들 때는 함수를 쓰는걸로 약속하자.
-                first: Math.ceil(Math.random() * 9),
-                second: Math.ceil(Math.random() * 9),
-                value: '',
-              }
-            });
-            this.input.focus(); // document.querySelector('input').focus()와 같음
-          } else { // 오답
-              this.setState({
-                result: '땡',
-                value: '',
-              });
-              this.input.focus();
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    class GuGuDan extends React.Component {
+      state = {
+        first: Math.ceil(Math.random() * 9),
+        second: Math.ceil(Math.random() * 9),
+        value: '',
+        result: '',
+      };
+
+      onSubmit = (e) => { // 직접 만든 함수는 화살표함수 써야한다. this가 달라져버림.
+        e.preventDefault();
+        if (parseInt(this.state.value) === this.state.first * this.state.second) { // 정답
+          this.setState((prevState) => { // 우리가 바뀔 부분을 정확히 컨트롤 하는거다.
+            return {
+              result: prevState.value + ' 정답!', // 예전 state 값으로 새로운 state를 만들 때는 함수를 쓰는걸로 약속하자.
+              first: Math.ceil(Math.random() * 9),
+              second: Math.ceil(Math.random() * 9),
+              value: '',
             }
-        };
-
-        onChange = (e) => {
-          this.setState({ value: e.target.value });
-        };
-        
-        onRefInput = (c) => {
-          this.input = c;
+          });
+          this.input.focus(); // document.querySelector('input').focus()와 같음
+        } else { // 오답
+          this.setState({
+            result: '땡',
+            value: '',
+          });
+          this.input.focus();
         }
+      };
 
-        // onSubmit, onChange, onRefInput 이렇게 함수를 바깥으로 빼야지 더 좋다. 왜냐하면 state가 변경될때 render 함수가 다시 실행되는데,
-        // 안에 있으면 setState 될 때마다 우리가 만든 함수가 계속 새로 생기게 된다. 
+      onChange = (e) => {
+        this.setState({ value: e.target.value });
+      };
 
-        render() {
-          // setState를 할때는 render 함수가 다시 실행된다.
-          // 만약 이 줄에 10초 걸리는 작업 long()이 있다면 state가 변경될 때마다 10초이상이 걸리게 되서 서비스가 마비될것이다.
-          console.log('렌더링'); // state 변경 될 때 마다 실행된다.
-          return (
-            <React.Fragment>
-              <div>
-                {this.state.first} 곱하기 {this.state.second}는?
-              </div>
-              <form onSubmit={this.onSubmit}>
-                <input ref={this.onRefInput} type='number' value={this.state.value} onChange={this.onChange}
-                // input 창도 변하니까 state로 등록 -> setState로 변경해줘야함 안그러면 입력이 안된다.
-                />
-                <button type="submit">입력!</button>
-              </form>
-              <div>{this.state.result}</div>
-            </React.Fragment>
-          );
-        }
+      onRefInput = (c) => {
+        this.input = c;
       }
-    </script>
-    <script type="text/babel">
-      ReactDOM.createRoot(document.querySelector('#root')).render(
-        <React.Fragment>
-          <h3>
-            아래 구구단 3개는 같은 컴포넌트지만 각각 다른 state를 가진다.
-            재사용성 굳..
-          </h3>
-          <GuGuDan />
-          <GuGuDan />
-          <GuGuDan />
-        </React.Fragment>
-      );
-    </script>
-  </body>
+
+      // onSubmit, onChange, onRefInput 이렇게 함수를 바깥으로 빼야지 더 좋다. 왜냐하면 state가 변경될때 render 함수가 다시 실행되는데,
+      // 안에 있으면 setState 될 때마다 우리가 만든 함수가 계속 새로 생기게 된다. 
+
+      render() {
+        // setState를 할때는 render 함수가 다시 실행된다.
+        // 만약 이 줄에 10초 걸리는 작업 long()이 있다면 state가 변경될 때마다 10초이상이 걸리게 되서 서비스가 마비될것이다.
+        console.log('렌더링'); // state 변경 될 때 마다 실행된다.
+        return (
+          <React.Fragment>
+            <div>
+              {this.state.first} 곱하기 {this.state.second}는?
+            </div>
+            <form onSubmit={this.onSubmit}>
+              <input ref={this.onRefInput} type='number' value={this.state.value} onChange={this.onChange}
+              // input 창도 변하니까 state로 등록 -> setState로 변경해줘야함 안그러면 입력이 안된다.
+              />
+              <button type="submit">입력!</button>
+            </form>
+            <div>{this.state.result}</div>
+          </React.Fragment>
+        );
+      }
+    }
+  </script>
+  <script type="text/babel">
+    ReactDOM.createRoot(document.querySelector('#root')).render(
+      <React.Fragment>
+        <h3>
+          아래 구구단 3개는 같은 컴포넌트지만 각각 다른 state를 가진다.
+          재사용성 굳..
+        </h3>
+        <GuGuDan />
+        <GuGuDan />
+        <GuGuDan />
+      </React.Fragment>
+    );
+  </script>
+</body>
+
 </html>

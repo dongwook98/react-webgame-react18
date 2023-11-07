@@ -67,7 +67,8 @@ const RSP = () => {
   useInterval(changeHand, isRunning ? 100 : null);
 
   const onClickBtn = (choice) => () => {
-    if (isRunning) { // 멈췄을 때 또 클릭하는 것 막기
+    if (isRunning) {
+      // 멈췄을 때 또 클릭하는 것 막기
       setIsRunning(false);
       const myScore = scores[choice];
       const cpuScore = scores[computerChoice(imgCoord)];
@@ -89,11 +90,22 @@ const RSP = () => {
 
   return (
     <>
-      <div id="computer" style={{ background: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoord} 0` }} />
+      <div
+        id='computer'
+        style={{
+          background: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoord} 0`,
+        }}
+      />
       <div>
-        <button id="rock" className="btn" onClick={onClickBtn('바위')}>바위</button>
-        <button id="scissor" className="btn" onClick={onClickBtn('가위')}>가위</button>
-        <button id="paper" className="btn" onClick={onClickBtn('보')}>보</button>
+        <button id='rock' className='btn' onClick={onClickBtn('바위')}>
+          바위
+        </button>
+        <button id='scissor' className='btn' onClick={onClickBtn('가위')}>
+          가위
+        </button>
+        <button id='paper' className='btn' onClick={onClickBtn('보')}>
+          보
+        </button>
       </div>
       <div>{result}</div>
       <div>현재 {score}점</div>

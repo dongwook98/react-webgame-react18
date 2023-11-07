@@ -1,8 +1,9 @@
 import React, { Component, createRef } from 'react';
 import Try from './Try';
 
-function getNumbers() { // 숫자 네 개를 겹치지 않고 랜덤하게 뽑는 함수
-  const candidate = [1,2,3,4,5,6,7,8,9];
+function getNumbers() {
+  // 숫자 네 개를 겹치지 않고 랜덤하게 뽑는 함수
+  const candidate = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const array = [];
   for (let i = 0; i < 4; i += 1) {
     const chosen = candidate.splice(Math.floor(Math.random() * (9 - i)), 1)[0];
@@ -27,7 +28,7 @@ class NumberBaseball extends Component {
         return {
           result: '홈런!',
           tries: [...prevState.tries, { try: value, result: '홈런!' }],
-        }
+        };
       });
       alert('게임을 다시 시작합니다!');
       this.setState({
@@ -36,11 +37,13 @@ class NumberBaseball extends Component {
         tries: [],
       });
       this.inputRef.current.focus();
-    } else { // 답 틀렸으면
+    } else {
+      // 답 틀렸으면
       const answerArray = value.split('').map((v) => parseInt(v));
       let strike = 0;
       let ball = 0;
-      if (tries.length >= 9) { // 10번 이상 틀렸을 때
+      if (tries.length >= 9) {
+        // 10번 이상 틀렸을 때
         this.setState({
           result: `10번 넘게 틀려서 실패! 답은 ${answer.join(',')}였습니다!`,
         });
@@ -61,7 +64,10 @@ class NumberBaseball extends Component {
         }
         this.setState((prevState) => {
           return {
-            tries: [...prevState.tries, { try: value, result: `${strike} 스트라이크, ${ball} 볼입니다`}],
+            tries: [
+              ...prevState.tries,
+              { try: value, result: `${strike} 스트라이크, ${ball} 볼입니다` },
+            ],
             value: '',
           };
         });
@@ -85,14 +91,17 @@ class NumberBaseball extends Component {
       <>
         <h1>{result}</h1>
         <form onSubmit={this.onSubmitForm}>
-          <input ref={this.inputRef} maxLength={4} value={value} onChange={this.onChangeInput} />
+          <input
+            ref={this.inputRef}
+            maxLength={4}
+            value={value}
+            onChange={this.onChangeInput}
+          />
         </form>
         <div>시도: {tries.length}</div>
         <ul>
           {tries.map((v, i) => {
-            return (
-              <Try key={`${i + 1}차 시도 :`} tryInfo={v} />
-            );
+            return <Try key={`${i + 1}차 시도 :`} tryInfo={v} />;
           })}
         </ul>
       </>

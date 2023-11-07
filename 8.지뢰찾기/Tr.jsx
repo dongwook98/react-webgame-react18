@@ -7,11 +7,12 @@ const Tr = memo(({ rowIndex }) => {
 
   return (
     <tr>
-      {tableData[0] && Array(tableData[0].length).fill().map((td, i) =>
-        <Td key={i} rowIndex={rowIndex} cellIndex={i} />
-      )}
+      {tableData[0] &&
+        Array(tableData[0].length)
+          .fill()
+          .map((td, i) => <Td key={i} rowIndex={rowIndex} cellIndex={i} />)}
     </tr>
-  )
+  );
 });
 Tr.displayName = 'Tr';
 
