@@ -260,6 +260,7 @@ const MineSearch = () => {
   const { tableData, halted, timer, result } = state;
 
   const value = useMemo(
+    // Context API 사용해서 useMemo로 최적화
     () => ({ tableData, halted, dispatch }),
     [tableData, halted]
   );

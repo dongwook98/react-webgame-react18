@@ -9,7 +9,7 @@ const Form = memo(() => {
 
   const onChangeRow = useCallback((e) => {
     setRow(e.target.value);
-  }, []);
+  }, []); // 불필요한 리렌더링 막기 위해 useCallback(밑에 2개도)
 
   const onChangeCell = useCallback((e) => {
     setCell(e.target.value);
