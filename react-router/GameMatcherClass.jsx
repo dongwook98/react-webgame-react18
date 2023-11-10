@@ -7,9 +7,7 @@ import { Route, Routes, useLocation } from 'react-router';
 
 class GameMatcher extends Component {
   render() {
-    let urlSearchParams = new URLSearchParams(
-      this.props.location.search.slice(1)
-    );
+    let urlSearchParams = new URLSearchParams(this.props.location.search.slice(1));
     console.log(urlSearchParams.get('page'));
     return (
       <Routes>
