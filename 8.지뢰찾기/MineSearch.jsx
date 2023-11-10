@@ -41,10 +41,7 @@ const plantMine = (row, cell, mine) => {
     });
   const shuffle = [];
   while (candidate.length > row * cell - mine) {
-    const chosen = candidate.splice(
-      Math.floor(Math.random() * candidate.length),
-      1
-    )[0];
+    const chosen = candidate.splice(Math.floor(Math.random() * candidate.length), 1)[0];
     shuffle.push(chosen);
   }
   const data = [];
@@ -94,31 +91,21 @@ const reducer = (state, action) => {
       const tableData = [...state.tableData];
       tableData.forEach((row, i) => {
         tableData[i] = [...row];
-      });
+      }); // 주변 칸들도 열어야하기 때문에 모든 칸들을 새롭게 만들어줌
       const checked = [];
       let openedCount = 0;
       console.log(tableData.length, tableData[0].length);
+      // 클릭한 칸을 기준으로 검사하는 함수
       const checkAround = (row, cell) => {
         console.log(row, cell);
         if (
-          row < 0 ||
-          row >= tableData.length ||
-          cell < 0 ||
-          cell >= tableData[0].length
-        ) {
-          return;
-        } // 상하좌우 없는칸은 안 열기
-        if (
-          [
-            CODE.OPENED,
-            CODE.FLAG,
-            CODE.FLAG_MINE,
-            CODE.QUESTION_MINE,
-            CODE.QUESTION,
-          ].includes(tableData[row][cell])
+          [CODE.OPENED, CODE.FLAG, CODE.FLAG_MINE, CODE.QUESTION_MINE, CODE.QUESTION].includes(tableData[row][cell])
         ) {
           return;
         } // 닫힌 칸만 열기
+        if (row < 0 || row >= tableData.length || cell < 0 || cell >= tableData[0].length) {
+          return;
+        } // 상하좌우 없는칸은 안 열기
         if (checked.includes(row + '/' + cell)) {
           return;
         } else {
@@ -126,6 +113,7 @@ const reducer = (state, action) => {
         } // 한 번 연칸은 무시하기
         let around = [tableData[row][cell - 1], tableData[row][cell + 1]];
         if (tableData[row - 1]) {
+          // 윗줄이 있으면 윗줄 3칸을 검사 대상에 넣어줌
           around = around.concat([
             tableData[row - 1][cell - 1],
             tableData[row - 1][cell],
@@ -133,6 +121,7 @@ const reducer = (state, action) => {
           ]);
         }
         if (tableData[row + 1]) {
+          // 아랫줄이 있으면 아래 3칸을 검사 대상에 넣어줌
           around = around.concat([
             tableData[row + 1][cell - 1],
             tableData[row + 1][cell],
@@ -143,10 +132,11 @@ const reducer = (state, action) => {
           return [CODE.MINE, CODE.FLAG_MINE, CODE.QUESTION_MINE].includes(v);
         }).length;
         if (count === 0) {
-          // 주변칸 오픈
+          // 클릭한 칸의 주변 지뢰 개수가 0이라면 주변칸도 오픈
           if (row > -1) {
-            const near = [];
+            const near = []; // 주변 칸들의 가로인덱스 세로인덱스를 모아놓은 변수 ex) row: 5, cell: 5이면 [[4, 4], [4, 5] ,[4, 6], ...]
             if (row - 1 > -1) {
+              // 맨 위칸 클릭했을 때는 push X
               near.push([row - 1, cell - 1]);
               near.push([row - 1, cell]);
               near.push([row - 1, cell + 1]);
@@ -154,12 +144,14 @@ const reducer = (state, action) => {
             near.push([row, cell - 1]);
             near.push([row, cell + 1]);
             if (row + 1 < tableData.length) {
+              // 맨 아래칸 클릭했을 때 push X
               near.push([row + 1, cell - 1]);
               near.push([row + 1, cell]);
               near.push([row + 1, cell + 1]);
             }
             near.forEach((n) => {
               if (tableData[n[0]][n[1]] !== CODE.OPENED) {
+                // 주변칸들이 이미 연 칸이 아니면 checkAround
                 checkAround(n[0], n[1]);
               }
             });
@@ -174,15 +166,8 @@ const reducer = (state, action) => {
       checkAround(action.row, action.cell);
       let halted = false;
       let result = '';
-      console.log(
-        state.data.row * state.data.cell - state.data.mine,
-        state.openedCount,
-        openedCount
-      );
-      if (
-        state.data.row * state.data.cell - state.data.mine ===
-        state.openedCount + openedCount
-      ) {
+      console.log(state.data.row * state.data.cell - state.data.mine, state.openedCount, openedCount);
+      if (state.data.row * state.data.cell - state.data.mine === state.openedCount + openedCount) {
         // 승리
         halted = true;
         result = `${state.timer}초만에 승리하셨습니다`;
@@ -259,11 +244,7 @@ const MineSearch = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { tableData, halted, timer, result } = state;
 
-  const value = useMemo(
-    // Context API 사용해서 useMemo로 최적화
-    () => ({ tableData, halted, dispatch }),
-    [tableData, halted]
-  );
+  const value = useMemo(() => ({ tableData, halted, dispatch }), [tableData, halted]);
 
   useEffect(() => {
     let timer;
