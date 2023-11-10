@@ -1,13 +1,5 @@
 import React, { useContext, useCallback, useMemo, memo } from 'react';
-import {
-  CLICK_MINE,
-  CODE,
-  FLAG_CELL,
-  NORMALIZE_CELL,
-  OPEN_CELL,
-  QUESTION_CELL,
-  TableContext,
-} from './MineSearch';
+import { CLICK_MINE, CODE, FLAG_CELL, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL, TableContext } from './MineSearch';
 
 const getTdStyle = (code) => {
   switch (code) {
@@ -111,24 +103,14 @@ const Td = memo(({ rowIndex, cellIndex }) => {
 
   console.log('td rendered');
 
-  return (
-    <RealTd
-      onClickTd={onClickTd}
-      onRightClickTd={onRightClickTd}
-      data={tableData[rowIndex][cellIndex]}
-    />
-  );
+  return <RealTd onClickTd={onClickTd} onRightClickTd={onRightClickTd} data={tableData[rowIndex][cellIndex]} />;
 });
 Td.displayName = 'Td';
 
 const RealTd = memo(({ onClickTd, onRightClickTd, data }) => {
   console.log('real td rendered');
   return (
-    <td
-      style={getTdStyle(data)}
-      onClick={onClickTd}
-      onContextMenu={onRightClickTd}
-    >
+    <td style={getTdStyle(data)} onClick={onClickTd} onContextMenu={onRightClickTd}>
       {getTdText(data)}
     </td>
   );
